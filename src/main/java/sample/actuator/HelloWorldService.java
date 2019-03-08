@@ -24,7 +24,8 @@ public class HelloWorldService {
 	
 
 	public String getHelloMessage() {
-		return "Ed says hello Otus from a Docker container - making it all work - 4";
+		return "Ed says hello Otus from a Docker container - making it all work - 5brew tap jesseduffield/lazygit\n"
+				+ "brew install lazygit";
 	}
 
 }
