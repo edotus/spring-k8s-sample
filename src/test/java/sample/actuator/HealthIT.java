@@ -18,13 +18,13 @@ public class HealthIT {
 	@Test
     public void message() {
 		given().when().get("http://localhost:8080/")
-            .then().body(containsString("Ed"));
+            .then().body(containsString("Spring boot"));
     }
 
 	@Test
     public void fullMessage() {
 		given().when().get("http://localhost:8080/")
-            .then().body("message",equalTo("Ed says hello Otus from a Docker container"));
+            .then().body("message",equalTo("Spring boot says hello from a Docker container"));
     }
 
 	@Test
