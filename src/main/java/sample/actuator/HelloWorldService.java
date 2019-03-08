@@ -24,7 +24,7 @@ public class HelloWorldService {
 	
 
 	public String getHelloMessage() {
-		return "Spring boot says hello Otus from a Docker container";
+		return "Ed says hello Otus from a Docker container";
 	}
 
 }
