@@ -26,6 +26,10 @@ steps:
     candidate: '${{BuildingDockerImage}}'
     tag: '${{CF_BRANCH_TAG_NORMALIZED}}'
     registry: cfcr
+  Helm Upgrade:
+    image: 'codefresh/cfstep-helm:2.9.0'
+    environment:
+      - key=value
   RunningDeployScript:
     title: Running Deploy Script
     type: deploy
