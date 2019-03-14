@@ -5,7 +5,7 @@ steps:
     image: maven:3.5.2-jdk-8-alpine
     commands:
     - mvn -Dmaven.repo.local=/codefresh/volume/m2_repository package
-    - mvn sonar:sonar \
+    - mvn -Dmaven.repo.local=/codefresh/volume/m2_repository sonar:sonar \
       -Dsonar.projectKey=spring-demo \
       -Dsonar.host.url=http://a9d173fdc468011e9aaaf06a9c748d13-1459329949.us-west-2.elb.amazonaws.com:9000 \
       -Dsonar.login=e0720ee66c4ddb77316e17b0fadc85e4e896700e
