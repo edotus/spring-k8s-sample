@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "example-jvm-svc.fullname" . }}-test-connection"
+  labels:
+    app.kubernetes.io/name: {{ include "example-jvm-svc.name" . }}
+    helm.sh/chart: {{ include "example-jvm-svc.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+  annotations:
+    "helm.sh/hook": test-success
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args:  ['{{ include "example-jvm-svc.fullname" . }}:{{ .Values.service.port }}']
+  restartPolicy: Never
