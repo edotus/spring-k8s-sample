@@ -15,6 +15,7 @@ service:
   name: spring-helm
   type: LoadBalancer
   port: 80
+  targetPort: 8080
 
 
 
