@@ -13,7 +13,7 @@ spec:
     - port: {{ .Values.service.port }}
       targetPort: {{ .Values.service.targetPort }}
       protocol: TCP
-      name: http
+      name: http1
   selector:
     app.kubernetes.io/name: {{ include "spring-demo.name" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
