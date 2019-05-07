@@ -14,11 +14,9 @@ fullnameOverride: ""
 service:
   name: spring-helm
   type: LoadBalancer
-  ports:
-    - name: http1
-      protocol: TCP
-      port: 80
-      targetPort: 8080
+  externalPort: 80
+  internalPort: 8080
+
 
 
 ingress:
