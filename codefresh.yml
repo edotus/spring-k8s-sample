@@ -28,7 +28,7 @@ steps:
     type: build
     image_name: spring-boot-2-sample-app
     working_directory: ./
-    tag: '${{CF_BRANCH_TAG_NORMALIZED}}-${{CF_SHORT_REVISION}}'
+    tag: '${{CF_BRANCH_TAG_NORMALIZED}}'
     dockerfile: Dockerfile
     metadata: # Declare the metadata attribute
       set: # Specify the set operation
@@ -38,7 +38,7 @@ steps:
     title: Pushing to Docker Registry
     type: push
     candidate: '${{BuildingDockerImage}}'
-    tag: '${{CF_BRANCH_TAG_NORMALIZED}}-${{CF_SHORT_REVISION}}'
+    tag: '${{CF_BRANCH_TAG_NORMALIZED}}'
     registry: cfcr
   StoreChart:
     stage: deploy
@@ -58,7 +58,7 @@ steps:
       - KUBE_CONTEXT=otus-platform-qa-env
       - NAMESPACE=default
       - VALUE_image_pullPolicy=Always
-      - VALUE_image_tag='${{CF_BRANCH_TAG_NORMALIZED}}-${{CF_SHORT_REVISION}}'
+      - VALUE_image_tag='${{CF_BRANCH_TAG_NORMALIZED}}'
 
 #version: '1.0'
 #steps:
