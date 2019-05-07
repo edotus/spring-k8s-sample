@@ -14,8 +14,7 @@ fullnameOverride: ""
 service:
   name: spring-helm
   type: LoadBalancer
-  externalPort: 80
-  internalPort: 8080
+  port: 80
 
 
 
