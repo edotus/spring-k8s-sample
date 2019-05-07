@@ -3,4 +3,4 @@ appVersion: "1.0"
 description: A Helm chart for Kubernetes
 name: spring-demo
 icon: https://cdn-images-1.medium.com/max/1600/1*dwa1SCG85BAzQttURVUvrA.png
-version: 0.2.2
+version: 0.2.3
