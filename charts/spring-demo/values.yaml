@@ -14,17 +14,17 @@ service:
   externalPort: 8080
   internalPort: 8080
 
-#ingress:
-#  enabled: true
-#  annotations: {}
-#    kubernetes.io/ingress.class: nginx
-#    kubernetes.io/tls-acme: "true"
-#  paths: []
-#  hosts:
-#    - spring.otusplatform.net
-#  tls: []
-#    hosts:
-#      - spring.otusplatform.net
+ingress:
+  enabled: true
+  annotations: {}
+    kubernetes.io/ingress.class: nginx
+    kubernetes.io/tls-acme: "true"
+  paths: []
+  hosts:
+    - spring.otusplatform.net
+  tls: []
+    hosts:
+      - spring.otusplatform.net
 
 resources:
   limits:
