@@ -4,6 +4,12 @@ stages:
   - test
   - deploy
 steps:
+  main_clone:
+    stage: build
+    title: Cloning main repository...
+    type: git-clone
+    repo: '${{CF_REPO_OWNER}}/${{CF_REPO_NAME}}'
+    revision: '${{CF_REVISION}}'
   Compilation:
     stage: build
     title: Compile/Unit test
