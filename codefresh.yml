@@ -56,7 +56,7 @@ steps:
       - CHART_REF=charts/spring-demo
       - RELEASE_NAME=spring-demo
       - KUBE_CONTEXT=otus-platform-qa-env
-      - NAMESPACE=default
+      - NAMESPACE=helm
       - VALUE_image_pullPolicy=Always
       - VALUE_image_tag='${{CF_BRANCH_TAG_NORMALIZED}}'
 
