@@ -13,8 +13,8 @@ fullnameOverride: ""
 
 service:
   name: spring-helm
-  type: ClusterIP
-  port: 8080
+  type: LoadBalancer
+  port: 80
 
 
 ingress:
