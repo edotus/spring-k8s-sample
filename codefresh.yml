@@ -5,16 +5,19 @@ stages:
   - deploy
 steps:
   Compilation:
+    stage: build
     title: Compile/Unit test
     image: maven:3.5.2-jdk-8-alpine
     commands:
     - mvn -Dmaven.repo.local=/codefresh/volume/m2_repository package
   Integration:
+    stage: test
     title: Integration test
     image: maven:3.5.2-jdk-8-alpine
     commands:
     - mvn -Dmaven.repo.local=/codefresh/volume/m2_repository verify
   BuildingDockerImage:
+    stage: test
     title: Building Docker Image
     type: build
     image_name: spring-boot-2-sample-app
@@ -25,18 +28,21 @@ steps:
       set: # Specify the set operation
       - build_style: non-multi-stage
   PushingToDockerRegistry:
+    stage: deploy
     title: Pushing to Docker Registry
     type: push
     candidate: '${{BuildingDockerImage}}'
     tag: '${{CF_BRANCH_TAG_NORMALIZED}}'
     registry: cfcr
   StoreChart:
+    stage: deploy
     title: Storing Helm chart
     image: 'codefresh/cfstep-helm:2.9.1'
     environment:
       - ACTION=push
       - CHART_REF=charts/spring-demo
   DeployMyChart:
+    stage: deploy
     image: 'codefresh/cfstep-helm:2.9.1'
     title: Deploying Helm chart
     environment:
