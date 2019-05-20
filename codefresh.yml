@@ -1,110 +1,110 @@
-version: '1.0'
-stages:
-  - build
-  - test
-  - deploy
-steps:
-#  main_clone:
-#    stage: build
-#    title: Cloning main repository...
-#    type: git-clone
-#    repo: '${{CF_REPO_OWNER}}/${{CF_REPO_NAME}}'
-#    revision: '${{CF_REVISION}}'
-  Compilation:
-    stage: build
-    title: Compile/Unit test
-    image: maven:3.5.2-jdk-8-alpine
-    commands:
-    - mvn -Dmaven.repo.local=/codefresh/volume/m2_repository package
-  Integration:
-    stage: test
-    title: Integration test
-    image: maven:3.5.2-jdk-8-alpine
-    commands:
-    - mvn -Dmaven.repo.local=/codefresh/volume/m2_repository verify
-  BuildingDockerImage:
-    stage: test
-    title: Building Docker Image
-    type: build
-    image_name: spring-boot-2-sample-app
-    working_directory: ./
-    tag: '${{CF_BRANCH_TAG_NORMALIZED}}'
-    dockerfile: Dockerfile
-    metadata: # Declare the metadata attribute
-      set: # Specify the set operation
-      - build_style: non-multi-stage
-  PushingToDockerRegistry:
-    stage: deploy
-    title: Pushing to Docker Registry
-    type: push
-    candidate: '${{BuildingDockerImage}}'
-    tag: '${{CF_BRANCH_TAG_NORMALIZED}}'
-    registry: cfcr
-  StoreChart:
-    stage: deploy
-    title: Storing Helm chart
-    image: 'codefresh/cfstep-helm:2.9.1'
-    environment:
-      - ACTION=push
-      - CHART_REF=charts/spring-demo
-  DeployMyChart:
-    stage: deploy
-    image: 'codefresh/cfstep-helm:2.9.1'
-    title: Deploying Helm chart
-    environment:
-      - ACTION=install
-      - CHART_REF=charts/spring-demo
-      - RELEASE_NAME=spring-demo
-      - KUBE_CONTEXT=otus-platform-qa-env
-      - NAMESPACE=helm
-      - VALUE_image_pullPolicy=Always
-      - VALUE_image_tag='${{CF_BRANCH_TAG_NORMALIZED}}'
+# version: '1.0'
+# stages:
+#   - build
+#   - test
+#   - deploy
+# steps:
+# #  main_clone:
+# #    stage: build
+# #    title: Cloning main repository...
+# #    type: git-clone
+# #    repo: '${{CF_REPO_OWNER}}/${{CF_REPO_NAME}}'
+# #    revision: '${{CF_REVISION}}'
+#   Compilation:
+#     stage: build
+#     title: Compile/Unit test
+#     image: maven:3.5.2-jdk-8-alpine
+#     commands:
+#     - mvn -Dmaven.repo.local=/codefresh/volume/m2_repository package
+#   Integration:
+#     stage: test
+#     title: Integration test
+#     image: maven:3.5.2-jdk-8-alpine
+#     commands:
+#     - mvn -Dmaven.repo.local=/codefresh/volume/m2_repository verify
+#   BuildingDockerImage:
+#     stage: test
+#     title: Building Docker Image
+#     type: build
+#     image_name: spring-boot-2-sample-app
+#     working_directory: ./
+#     tag: '${{CF_BRANCH_TAG_NORMALIZED}}'
+#     dockerfile: Dockerfile
+#     metadata: # Declare the metadata attribute
+#       set: # Specify the set operation
+#       - build_style: non-multi-stage
+#   PushingToDockerRegistry:
+#     stage: deploy
+#     title: Pushing to Docker Registry
+#     type: push
+#     candidate: '${{BuildingDockerImage}}'
+#     tag: '${{CF_BRANCH_TAG_NORMALIZED}}'
+#     registry: cfcr
+#   StoreChart:
+#     stage: deploy
+#     title: Storing Helm chart
+#     image: 'codefresh/cfstep-helm:2.9.1'
+#     environment:
+#       - ACTION=push
+#       - CHART_REF=charts/spring-demo
+#   DeployMyChart:
+#     stage: deploy
+#     image: 'codefresh/cfstep-helm:2.9.1'
+#     title: Deploying Helm chart
+#     environment:
+#       - ACTION=install
+#       - CHART_REF=charts/spring-demo
+#       - RELEASE_NAME=spring-demo
+#       - KUBE_CONTEXT=otus-platform-qa-env
+#       - NAMESPACE=helm
+#       - VALUE_image_pullPolicy=Always
+#       - VALUE_image_tag='${{CF_BRANCH_TAG_NORMALIZED}}'
 
-#version: '1.0'
-#steps:
-#  Sonar:
-#    title: Sonar
-#    image: maven:3.5.2-jdk-8-alpine
-#    commands:
-#    - mvn sonar:sonar -Dsonar.projectKey=spring-demo-app -Dsonar.host.url=http://a9d173fdc468011e9aaaf06a9c748d13-1459329949.us-west-2.elb.amazonaws.com:9000 -Dsonar.login=c1b95f8f1171ee69ab61f1a019d7944ac8d7e969
-#  Compilation:
-#    title: Compile/Unit test
-#    image: maven:3.5.2-jdk-8-alpine
-#    commands:
-#    - mvn -Dmaven.repo.local=/codefresh/volume/m2_repository package
-#  Integration:
-#    title: Integration test
-#    image: maven:3.5.2-jdk-8-alpine
-#    commands:
-#    - mvn -Dmaven.repo.local=/codefresh/volume/m2_repository verify
-#  BuildingDockerImage:
-#    title: Building Docker Image
-#    type: build
-#    image_name: spring-boot-2-sample-app
-#    working_directory: ./
-#    tag: '${{CF_BRANCH_TAG_NORMALIZED}}-${{CF_SHORT_REVISION}}'
-#    dockerfile: Dockerfile
-#    metadata: # Declare the metadata attribute
-#      set: # Specify the set operation
-#      - build_style: non-multi-stage
-#  PushingToDockerRegistry:
-#    title: Pushing to Docker Registry
-#    type: push
-#    candidate: '${{BuildingDockerImage}}'
-#    tag: '${{CF_BRANCH_TAG_NORMALIZED}}'
-#    registry: cfcr
-#  RunningDeployScript:
-#    title: Running Deploy Script
-#    type: deploy
-#    kind: kubernetes
-#    cluster: data-integration
-#    namespace: default
-#    when:
-#      branch:
-#        only:
-#        - master
-#    service: spring
-#    candidate:
-#      image: '${{BuildingDockerImage}}'
-#      registry: cfcr
-#stages: []
+version: '1.0'
+steps:
+ Sonar:
+   title: Sonar
+   image: maven:3.5.2-jdk-8-alpine
+   commands:
+   - mvn sonar:sonar -Dsonar.projectKey=spring-demo-app -Dsonar.host.url=http://a9d173fdc468011e9aaaf06a9c748d13-1459329949.us-west-2.elb.amazonaws.com:9000 -Dsonar.login=c1b95f8f1171ee69ab61f1a019d7944ac8d7e969
+ Compilation:
+   title: Compile/Unit test
+   image: maven:3.5.2-jdk-8-alpine
+   commands:
+   - mvn -Dmaven.repo.local=/codefresh/volume/m2_repository package
+ Integration:
+   title: Integration test
+   image: maven:3.5.2-jdk-8-alpine
+   commands:
+   - mvn -Dmaven.repo.local=/codefresh/volume/m2_repository verify
+ BuildingDockerImage:
+   title: Building Docker Image
+   type: build
+   image_name: spring-boot-2-sample-app
+   working_directory: ./
+   tag: '${{CF_BRANCH_TAG_NORMALIZED}}-${{CF_SHORT_REVISION}}'
+   dockerfile: Dockerfile
+   metadata: # Declare the metadata attribute
+     set: # Specify the set operation
+     - build_style: non-multi-stage
+ PushingToDockerRegistry:
+   title: Pushing to Docker Registry
+   type: push
+   candidate: '${{BuildingDockerImage}}'
+   tag: '${{CF_BRANCH_TAG_NORMALIZED}}'
+   registry: cfcr
+ RunningDeployScript:
+   title: Running Deploy Script
+   type: deploy
+   kind: kubernetes
+   cluster: otus-legacy-prod-1553279560
+   namespace: qa
+   when:
+     branch:
+       only:
+       - master
+   service: qa-spring
+   candidate:
+     image: '${{BuildingDockerImage}}'
+     registry: cfcr
+stages: []
