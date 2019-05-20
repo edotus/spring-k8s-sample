@@ -24,7 +24,7 @@ public class HealthIT {
 	@Test
     public void fullMessage() {
 		given().when().get("http://localhost:8080/")
-            .then().body("message",equalTo("Spring boot says HOLA from a Docker container"));
+            .then().body("message",equalTo("Spring boot says bonjour from a Docker container"));
     }
 
 	@Test
