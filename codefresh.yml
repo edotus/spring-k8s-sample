@@ -62,11 +62,6 @@
 
 version: '1.0'
 steps:
- Sonar:
-   title: Sonar
-   image: maven:3.5.2-jdk-8-alpine
-   commands:
-   - mvn sonar:sonar -Dsonar.projectKey=spring-demo-app -Dsonar.host.url=http://a9d173fdc468011e9aaaf06a9c748d13-1459329949.us-west-2.elb.amazonaws.com:9000 -Dsonar.login=c1b95f8f1171ee69ab61f1a019d7944ac8d7e969
  Compilation:
    title: Compile/Unit test
    image: maven:3.5.2-jdk-8-alpine
